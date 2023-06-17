@@ -4,8 +4,81 @@ import first from "../first.jpeg"
 import one from "../1.png"
 import two from "../2.png"
 import three from "../3.png"
+import five from "../5.png"
+import six from "../6.png"
+import seven from "../7.png"
+import eight from "../8.png"
+
+import { useEffect, useState } from 'react';
+
+
+let CartArr=JSON.parse(localStorage.getItem("cart"))||[]
+
+const intialstate={
+    title:"",
+    category:"",
+    image:"",
+    price:""
+  }
+
+  function  checkDuplicate(product){
+    for(let i=0;i<CartArr.length;i++){
+      if(CartArr[i].id===product.id){
+        return true
+      }
+    }
+    return false
+}
 
 function Home(){
+  const [data ,setdata]=useState([])
+
+    const [loding, setloding]=useState(false)
+    const [page ,setpage] = useState(1)
+    const [filterby, setfilterby] = useState("")
+    const [sortby, setsortby] = useState("")
+    
+    const limit=8
+    const sort="price"
+    
+    function getapiurl (url,filterby,sortby,sort){
+      if (filterby){
+        return (url=`${url}&category=${filterby}`)
+      }else if(sortby && sort){
+        return (url=`${url}&_sort=${sort}&_order=${sortby}`)
+      }
+    return url
+    }
+    
+    
+    
+    
+    
+    async function fetcproductdetaisfromapi(page){
+      let apiurl=getapiurl(`http://localhost:8080/products?_page=${page}&_limit=${limit}`,
+      filterby,sortby,sort)
+      setloding(true)
+     try {
+      const res=await fetch(apiurl)
+      let data= await res.json()
+      //console.log(data)
+      setdata(data)
+     } catch (error) {
+      console.log(error)
+      setloding(false)
+     }
+    }
+    
+    console.log(data)
+    
+    
+    
+    
+    
+    useEffect(()=>{
+      fetcproductdetaisfromapi(page)
+    },[page,filterby,sortby])
+    
     
     return (
         <div>
@@ -77,7 +150,44 @@ function Home(){
   </div>
   <hr/>
   </div>
-       
+  <div style={{display:'grid',gridTemplateColumns:"repeat(4,2fr)"}}>
+          {data.map((el,i)=>(
+            <div style={{marginTop:"20px"}} key={el.id}>
+
+              <img src={el.image} alt={el.name}width={200}height={200}/>
+              <p>{el.title}</p>
+              <p>{el.category}</p>
+              <p>price:{el.price}</p>
+              <button style={{height:"30px",width:"200px",backgroundColor:"purple",color:"white",border:"white"}} onClick={()=>{
+
+                if(checkDuplicate(el)){
+                  alert("Product Already in Cart")
+                }else{
+                  let cartData = JSON.parse(localStorage.getItem('cart'));
+                  cartData.push({...el,quantity:1})
+                  // CartArr.push({...el,quantity:1})
+                  localStorage.setItem("cart",JSON.stringify(cartData))
+                  alert("Product Added To Cart")
+
+              }
+              }} ><b>Add to Cart</b></button>
+            </div>
+          ))}
+          
+        </div>
+        <div>
+        <img src={eight}/>
+        </div>
+        <div>
+         <img src={seven}/>
+        </div>
+        <div>
+        <img src={five}/>
+        </div>
+        <div>
+        <img src={six}/>
+        </div>
+        
         
         </div>
     )

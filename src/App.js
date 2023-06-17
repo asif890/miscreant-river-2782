@@ -6,10 +6,12 @@ import { useState } from 'react';
 import bd from "./bg.png"
 import Home from './Component/Home';
 import Allrout from './Component/Allroute';
+import { useNavigate } from 'react-router-dom';
 
 
 function App() {
-
+  const mithun=useNavigate()
+  const dev=useNavigate()
 
   return (
     <div className="App">
@@ -80,6 +82,7 @@ function App() {
               width:"50px",
               height:"40px",
             }}
+            onClick={(()=>mithun("/cart"))}
           >
             Cart
           </button>
@@ -96,6 +99,7 @@ function App() {
               width:"100px",
               height:"40px",
             }}
+            onClick={(()=>mithun("/login"))}
           >
             My Account
           </button>
