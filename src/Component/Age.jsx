@@ -14,12 +14,12 @@ function Aged(){
               backgroundRepeat:"no-repeat",
               backgroundSize:"cover",
               height:"800px",
-              
+               border:"1px solid black",
            }}>
          <div
-         style={{ height:"400px",width:"550px" ,marginLeft:"200px" ,backgroundColor:"white"}}
+         style={{ height:"400px",width:"550px" ,marginLeft:"170px" ,backgroundColor:"white",padding:"30px",marginTop:"100px",border:"1px solid white"}}
          >
-          <img src={bd} style={{height:"100px",width:"100px" ,borderRadius:"40%"}}/>
+          <img src={bd} style={{height:"100px",width:"100px" ,borderRadius:"40%",marginLeft:"210px"}}/>
 
            <h1>Confirm your are of legal Drinking Age before entering the website</h1>
            <p>Are you over 21 years of age?</p>
