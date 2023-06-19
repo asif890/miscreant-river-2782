@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState } from 'react';
 import { Navigate } from "react-router-dom";
+import ten from "../10.png"
 // let allCart = JSON.parse(localStorage.getItem("cart"))||[];
 
 
@@ -55,10 +56,11 @@ function Cart () {
   }
   if(placeorder){
     alert("order placed successfully")
-    return <Navigate to="/"/>
+    return <Navigate to="/home"/>
 }
   
   return (
+    <div>
     <div style={{display:"flex" ,width:"100%" ,marginTop:"20px" }} >
 
 
@@ -116,10 +118,13 @@ function Cart () {
           <h3>{allCart.length === 0 ?(<p>0</p>):(Math.floor(totalprice+50))}</h3>
           <hr/>
          
-          <button style={{width:"150px",height:"30px",backgroundColor:"purple",color:"white",border:"white" }} onClick={()=>setplaceorder(true)} >Place Your order</button>
+          <button style={{width:"150px",height:"30px",backgroundColor:"#5D4037",color:"white",border:"white" }} onClick={()=>setplaceorder(true)} >Place Your order</button>
           </div>
           
       </div>
+      
+    </div>
+    <img src={ten}/>
     </div>
   );
 };
